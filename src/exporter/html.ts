@@ -162,8 +162,8 @@ function conversationToHtml(conversation: ConversationResult, avatar: string, me
             ${content}
             ${attachmentsHtml}
         </div>
+        ${timestampHtml}
     </div>
-    ${timestampHtml}
 </div>`
     }).filter(Boolean).join('\n\n')
 

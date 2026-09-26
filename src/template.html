@@ -30,6 +30,9 @@
         :root {
             --page-text: #0d0d0d;
             --page-bg: #fff;
+            --assistant-bubble: #f2f3f5;
+            --user-bubble: #e9e5ff;
+            --user-text: #2d2465;
             --td-borders: #374151;
             --th-borders: #4b5563;
             --tw-prose-code: var(--page-text);
@@ -44,6 +47,9 @@
         [data-theme="dark"] {
             --page-text: #ececec;
             --page-bg: #212121;
+            --assistant-bubble: #2c2d31;
+            --user-bubble: #4338ca;
+            --user-text: #fff;
             --tw-prose-code: var(--page-text);
             --tw-prose-counters: #9b9b9b;
             --tw-prose-headings: var(--page-text);
@@ -444,14 +450,17 @@
         .conversation-item {
             display: flex;
             position: relative;
-            padding: 1rem;
-            border-left: 1px solid rgba(0,0,0,.1);
-            border-right: 1px solid rgba(0,0,0,.1);
-            border-bottom: 1px solid rgba(0,0,0,.1);
+            align-items: flex-start;
+            gap: 0.75rem;
+            width: fit-content;
+            max-width: 100%;
+            margin-bottom: 1rem;
         }
 
-        .conversation-item:first-of-type {
-            border-top: 1px solid rgba(0,0,0,.1);
+        .conversation-item[data-ce-prompt] {
+            flex-direction: row-reverse;
+            margin-inline-start: auto;
+            max-width: 92%;
         }
 
         .author {
@@ -461,8 +470,7 @@
             align-items: center;
             width: 30px;
             height: 30px;
-            border-radius: 0.125rem;
-            margin-right: 1rem;
+            border-radius: 50%;
             overflow: hidden;
         }
 
@@ -486,8 +494,22 @@
             display: flex;
             position: relative;
             overflow: hidden;
-            flex: 1 1 auto;
+            flex: 0 1 auto;
             flex-direction: column;
+            min-width: 0;
+            padding: 0.75rem 1rem;
+            border-radius: 0.25rem 1rem 1rem;
+            background-color: var(--assistant-bubble);
+        }
+
+        [data-ce-prompt] .conversation-content-wrapper {
+            --tw-prose-code: var(--user-text);
+            --tw-prose-headings: var(--user-text);
+            --tw-prose-links: var(--user-text);
+            --tw-prose-quotes: var(--user-text);
+            color: var(--user-text);
+            background-color: var(--user-bubble);
+            border-radius: 1rem 0.25rem 1rem 1rem;
         }
 
         .thinking {
@@ -522,6 +544,12 @@
         .conversation-content {
             font-size: 1rem;
             line-height: 1.5;
+            overflow-wrap: anywhere;
+            min-width: 0;
+        }
+
+        .conversation-content > :last-child {
+            margin-bottom: 0;
         }
 
         .conversation-content p {
@@ -549,12 +577,30 @@
             color: #9ca3af;
         }
 
+        .conversation-item[data-ce-prompt] .attachments {
+            color: inherit;
+        }
+
         .time {
-            position: absolute;
-            right: 8px;
-            bottom: 0;
+            align-self: flex-end;
+            margin-top: 0.5rem;
             font-size: 0.8rem;
-            color: #acacbe
+            color: inherit;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 600px) {
+            .conversation-item {
+                gap: 0.5rem;
+            }
+
+            .conversation-item[data-ce-prompt] {
+                max-width: 100%;
+            }
+
+            .conversation-content-wrapper {
+                padding: 0.75rem;
+            }
         }
 
     </style>

@@ -4,7 +4,7 @@ This fork builds the original exporter source as a Chrome extension. It also kee
 the upstream userscript build. The local development branch is `chrome-extension`.
 
 Initial upstream base: `e59449ab7ff428ad86aa95e2d0be444db221ab5d`, exporter 2.36.2.
-The extension version is 0.4.0. It replaces the separate wrapper version 0.2.2.
+The extension version is 0.4.1. It replaces the separate wrapper version 0.2.2.
 
 ## Local changes
 
@@ -18,6 +18,7 @@ The extension version is 0.4.0. It replaces the separate wrapper version 0.2.2.
 | Strict URL validation and no fallback to the latest chat | `src/page.ts`, `src/api.ts` |
 | Stable native HTML message links | `src/exporter/messageAnchors.ts`, `src/exporter/html.ts`, `src/template.html` |
 | Prompt navigation in HTML exports | `src/exporter/promptNavigation.js`, `src/exporter/promptNavigation.css` |
+| Chat bubbles with purple user messages and user icons on the right | `src/template.html`, `src/exporter/html.ts` |
 
 Upstream already includes support for `data-theme="dark"`, theme tests, and the new
 sidebar. This fork uses those fixes directly. No build-time text patches are used.
@@ -55,6 +56,10 @@ and ignored by Git. `BUILD-INFO.json` records the source commit and whether the
 working tree had changes at build time. Package license notices are included.
 
 ## Navigate an HTML export
+
+New HTML exports use chat bubbles. User messages and icons are on the right with
+a blue-purple background. Assistant messages stay on the left. Both light and
+dark themes are supported. Export old files again to apply the new layout.
 
 New HTML exports include a prompt bar with previous/next arrows, one clickable
 marker per user prompt, and the current/total prompt count. Hover over a marker to
@@ -108,6 +113,10 @@ The upstream userscript build is available with `pnpm run build`. It writes to t
 upstream `dist/` directory. Review those generated changes before committing.
 
 ## Validation
+
+Chat bubbles (extension 0.4.1): 151 tests passed, with type checking, lint, and the
+generated extension checks. A sample HTML export was checked in light and dark
+themes, including a narrow screen, long text, code blocks, and prompt navigation.
 
 Prompt navigation (extension 0.4.0): 151 tests passed, with type checking, lint,
 both builds, and the generated extension checks. A synthetic HTML export was
