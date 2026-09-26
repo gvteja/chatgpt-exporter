@@ -25,6 +25,7 @@
     "src",
     "src/locales/*.json",
     "package.json",
-    "vite.config.ts"
+    "vite.config.ts",
+    "vite.extension.config.ts"
   ]
 }

@@ -26,7 +26,9 @@
     "test": "tsc --noEmit && vitest run",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build:extension": "vite build --config vite.extension.config.ts",
+    "check:extension": "pnpm test && pnpm run build:extension && node scripts/check-extension.mjs"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",

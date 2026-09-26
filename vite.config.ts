@@ -11,7 +11,7 @@ export default defineConfig({
             devtoolsInProd: false,
         }),
         monkey({
-            entry: 'src/main.tsx',
+            entry: 'src/userscript.ts',
             userscript: {
                 'name': {
                     '': packageJson.title,

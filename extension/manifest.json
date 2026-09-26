@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "ChatGPT Exporter — Personal Fork",
+  "version": "0.3.0",
+  "minimum_chrome_version": "120",
+  "description": "Personal fork of pionxzh ChatGPT Exporter with Chrome extension support and HTML message links.",
+  "action": {
+    "default_title": "ChatGPT Exporter — Personal Fork",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*"
+      ],
+      "js": [
+        "exporter.js"
+      ],
+      "run_at": "document_end",
+      "world": "MAIN",
+      "all_frames": false,
+      "css": [
+        "exporter.css"
+      ]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'"
+  }
+}

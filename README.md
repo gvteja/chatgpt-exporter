@@ -1,5 +1,7 @@
 <h1 align="center">ChatGPT Exporter</h1>
 
+**Personal fork:** This repository also builds a Chrome extension and adds HTML message links and strict conversation selection. See [FORK.md](FORK.md) for build, installation, and upstream update instructions.
+
 <div align="center">
 
 ## A GreasyFork script to export the chat history of [ChatGPT](https://chatgpt.com/)

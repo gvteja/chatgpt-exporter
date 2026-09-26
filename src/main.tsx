@@ -29,9 +29,7 @@ interface NavMenuMount {
     insert: (container: Element) => void
 }
 
-main()
-
-function main() {
+export function startExporter() {
     // Installed before the page is ready so it is in place by the time the
     // user can send the first message of a temporary chat.
     watchTemporaryChatId()
