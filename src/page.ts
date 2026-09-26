@@ -1,4 +1,5 @@
 import { unsafeWindow } from 'vite-plugin-monkey/dist/client'
+import { getTemporaryChatId } from './temporaryChat'
 import { getBase64FromImg } from './utils/dom'
 
 declare global {
@@ -45,7 +46,7 @@ export function getChatIdFromUrl() {
     // /share/e/1e5sf-asdf-1234
     // /c/1e5sf-asdf-1234
     // /g/1e5sf-asdf-1234/c/1e5sf-asdf-1234
-    const match = location.pathname.match(/^\/(?:share(?:\/[a-z]+)?|c|g\/[a-z0-9-]+\/c)\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i)
+    const match = location.pathname.match(/^\/(?:share(?:\/[a-z]+)?|c|g\/[a-z0-9-]+\/c)\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?:\/)?$/i)
     if (match) return match[1]
     return null
 }
@@ -88,6 +89,9 @@ export async function getUserAvatar(): Promise<string> {
 }
 
 export function checkIfConversationStarted() {
+    // Saved chats load through the API; rendered messages may be virtualized.
+    if (!isTemporaryChat()) return getChatIdFromUrl() !== null
+    if (getTemporaryChatId()) return true
     return !!document.querySelector([
         '[data-testid^="conversation-turn-"]',
         '[data-chatgpt-conversation-selection-target] [data-chatgpt-search-message-ids]',

@@ -69,6 +69,18 @@ const uploadConversation = conversation([
 ])
 
 describe('exportAllToHtml', () => {
+    it('exports matching message fragments and native links for both roles', async () => {
+        const html = await exportFile(exportAllToHtml, conversation([
+            { role: 'user', content: { content_type: 'text', parts: ['Question'] } },
+            { role: 'assistant', content: { content_type: 'text', parts: ['Answer'] } },
+        ]))
+        for (const id of ['m0', 'm1']) {
+            expect(html).toContain(`id="msg-${id}"`)
+            expect(html).toContain(`href="#msg-${id}"`)
+        }
+        expect(html.match(/id="ce-message-anchor-style"/g)).toHaveLength(1)
+    })
+
     it('escapes text that is not an assistant reply', async () => {
         const html = await exportFile(exportAllToHtml, conversation([
             { role: 'user', content: { content_type: 'text', parts: ['draw it'] } },

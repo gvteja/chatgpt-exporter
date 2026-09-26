@@ -480,12 +480,7 @@ export async function getCurrentChatId(): Promise<string> {
     const chatId = getChatIdFromUrl()
     if (chatId) return chatId
 
-    const conversations = await fetchConversations()
-    if (conversations && conversations.items.length > 0) {
-        return conversations.items[0].id
-    }
-
-    throw new Error('No chat id found.')
+    throw new Error('No chat id found. Open the conversation you want to export.')
 }
 
 async function fetchImageFromPointer(uri: string) {

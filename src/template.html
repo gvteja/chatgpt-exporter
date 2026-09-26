@@ -558,6 +558,18 @@
         }
 
     </style>
+<style id="ce-message-anchor-style">
+.conversation-item[id^="msg-"] { scroll-margin-top: 1rem; }
+.conversation-item[id^="msg-"]:target {
+  outline: 2px solid currentColor; outline-offset: 4px; border-radius: 0.3rem;
+}
+.ce-message-link { display: inline-block; font: inherit; font-size: 0.8rem;
+  line-height: 1.5; margin-bottom: 0.5rem; color: inherit; text-decoration: underline;
+  text-underline-offset: 0.15em; opacity: 0.75; }
+.ce-message-link:hover, .ce-message-link:focus-visible { opacity: 1; }
+@media print { .ce-message-link { display: none; }
+  .conversation-item[id^="msg-"]:target { outline: none; } }
+</style>
 </head>
 
 <body>

@@ -16,6 +16,7 @@ import { transformAuthor } from '../utils/author'
 import type { ApiConversationWithId, ConversationNodeMessage, ConversationResult, ThinkingContent } from '../api'
 import type { ExportMeta } from '../ui/SettingContext'
 import type { PartInfo } from '../utils/download'
+import { createMessageAnchor } from './messageAnchors'
 import { escapeHtml, fillTemplate, metaDetailsHtml } from './htmlTemplate'
 import { getMetaVariables, resolveMetaList } from './meta'
 
@@ -93,11 +94,13 @@ function conversationToHtml(conversation: ConversationResult, avatar: string, me
     const timeStamp24H = ScriptStorage.get<boolean>(KEY_TIMESTAMP_24H) ?? false
     const enableSources = ScriptStorage.get<boolean>(KEY_SOURCES_ENABLED) ?? true
 
-    const conversationHtml = conversationNodes.map(({ message, thinking }) => {
+    const usedAnchors = new Set<string>()
+    const conversationHtml = conversationNodes.map(({ id: nodeId, message, thinking }, messageIndex) => {
         if (!message || !message.content) return null
 
         if (shouldSkipMessageInExport(message)) return null
 
+        const anchor = createMessageAnchor(message.id, nodeId, messageIndex, usedAnchors)
         const author = transformAuthor(message.author)
         const authorType = message.author.role === 'user' ? 'user' : 'assistant'
         const avatarEl = message.author.role === 'user'
@@ -146,11 +149,12 @@ function conversationToHtml(conversation: ConversationResult, avatar: string, me
         const thinkingBlock = thinking ? formatThinkingHtml(thinking) : ''
 
         return `
-<div class="conversation-item">
+<div class="conversation-item" id="${anchor}" tabindex="-1">
     <div class="author ${authorType}">
         ${avatarEl}
     </div>
     <div class="conversation-content-wrapper">
+        <a class="ce-message-link" href="#${anchor}" aria-label="Link to this message" title="Link to this message. Right-click to copy the link address.">Message link</a>
         ${thinkingBlock}
         <div class="conversation-content">
             ${content}
