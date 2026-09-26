@@ -19,6 +19,8 @@ import type { PartInfo } from '../utils/download'
 import { createMessageAnchor } from './messageAnchors'
 import { escapeHtml, fillTemplate, metaDetailsHtml } from './htmlTemplate'
 import { getMetaVariables, resolveMetaList } from './meta'
+import promptNavigationScript from './promptNavigation.js?raw'
+import promptNavigationStyles from './promptNavigation.css?raw'
 
 export async function exportToHtml(fileNameFormat: string, metaList: ExportMeta[]) {
     if (!checkIfConversationStarted()) {
@@ -149,7 +151,7 @@ function conversationToHtml(conversation: ConversationResult, avatar: string, me
         const thinkingBlock = thinking ? formatThinkingHtml(thinking) : ''
 
         return `
-<div class="conversation-item" id="${anchor}" tabindex="-1">
+<div class="conversation-item" id="${anchor}" tabindex="-1"${message.author.role === 'user' ? ' data-ce-prompt' : ''}>
     <div class="author ${authorType}">
         ${avatarEl}
     </div>
@@ -183,6 +185,8 @@ function conversationToHtml(conversation: ConversationResult, avatar: string, me
         avatar,
         details: metaDetailsHtml(_metaList),
         content: conversationHtml,
+        promptNavigationScript,
+        promptNavigationStyles,
     })
 }
 

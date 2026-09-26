@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ChatGPT Exporter — Personal Fork",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "minimum_chrome_version": "120",
   "description": "Personal fork of pionxzh ChatGPT Exporter with Chrome extension support and HTML message links.",
   "action": {

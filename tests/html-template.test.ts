@@ -15,7 +15,7 @@ describe('fillTemplate', () => {
 
     it('fills every placeholder in the HTML template', () => {
         const template = readFileSync(new URL('../src/template.html', import.meta.url), 'utf8')
-        const names = ['title', 'date', 'time', 'source', 'lang', 'theme', 'avatar', 'details', 'content']
+        const names = ['title', 'date', 'time', 'source', 'lang', 'theme', 'avatar', 'details', 'content', 'promptNavigationScript', 'promptNavigationStyles']
         const html = fillTemplate(template, Object.fromEntries(names.map(name => [name, `<${name}>`])))
         expect(html).not.toMatch(/\{\{\w+\}\}/)
     })

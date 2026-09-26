@@ -570,6 +570,7 @@
 @media print { .ce-message-link { display: none; }
   .conversation-item[id^="msg-"]:target { outline: none; } }
 </style>
+<style id="ce-prompt-navigation-style">{{promptNavigationStyles}}</style>
 </head>
 
 <body>
@@ -654,6 +655,7 @@
         document.querySelector('.toggle').addEventListener('click', () => toggleDarkMode());
         document.querySelector('.width-toggle').addEventListener('click', () => toggleWidthMode());
     </script>
+    <script id="ce-prompt-navigation-script">{{promptNavigationScript}}</script>
 </body>
 
 </html>

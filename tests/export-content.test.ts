@@ -79,6 +79,10 @@ describe('exportAllToHtml', () => {
             expect(html).toContain(`href="#msg-${id}"`)
         }
         expect(html.match(/id="ce-message-anchor-style"/g)).toHaveLength(1)
+        expect(html).toContain('id="msg-m0" tabindex="-1" data-ce-prompt')
+        expect(html).toContain('id="msg-m1" tabindex="-1">')
+        expect(html).toContain('<script id="ce-prompt-navigation-script">')
+        expect(html).not.toContain('{{promptNavigation')
     })
 
     it('escapes text that is not an assistant reply', async () => {
